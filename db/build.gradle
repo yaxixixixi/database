@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.yaxi.db"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+
+    //GreenDao配置
+    greendao {
+        //数据库版本
+        schemaVersion 1
+        //通过gradle插件生成的数据库相关文件的包名，默认为你的entity所在的包名
+        daoPackage 'com.yaxi.db.dao'
+        //这就是我们上面说到的自定义生成数据库文件的目录了，可以将生成的文件放
+        // 到我们的java目录中，而不是build中，这样就不用额外的设置资源目录了
+        targetGenDir 'src/main/java'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    compile 'org.greenrobot:greendao:3.2.2' // add library
+
+}
